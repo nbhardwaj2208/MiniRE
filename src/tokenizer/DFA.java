@@ -439,6 +439,113 @@ class State {
         transitions = new HashMap<Character, State>();
         nodes = nodeSet;
     }
+	
+	public static boolean isDigit(char ch) {
+       int val = ch - '0' ;
+       if(val >= 0 && val <= 9)
+           return true ;
+       return false ;
+   }
+   public static boolean isDecimal(String decimalStr) {
+       if(decimalStr.length() == 0)
+           return false ;
+       char ch ;
+       for(int i = 0 ; i < decimalStr.length() ; i++) {
+           ch = decimalStr.charAt(i);
+           if((ch == '+' || ch == '-') && i == 0) {
+              
+           }
+           else if(isDigit(ch)) {
+              
+           }
+           else if(ch == '.' && i != 0) {
+              
+           }
+           else {
+               return false ;
+           }
+       }
+       return true ;
+   }
+   public static void main(String[] args) {
+      
+       Scanner sc = new Scanner(System.in);
+       System.out.print("Enter decimal value: ");
+       String decimal = sc.nextLine() ;
+       System.out.println("is Decimal:" + isDecimal(decimal));
+
+   }
+
+}
+
+
+
+
+
+
+    public static void testArrayIsDecimal() {
+        String[] yesWord = 
+            {"12", "+12", "-12", "6.77", "-6.77", "+6.77", "0000", "9.00"};
+        String[] noWord = 
+            {" 12", "+1+2", "12-", "6.", "-6.77 ", "", "000 0", ".9", "-.0"};
+        System.out.println("\nTesting DFA isDecimal with fixed set of words...");
+        boolean error = false;
+        for (var w:yesWord) {
+            if (!isDecimal(w)) {
+                error = true;
+                System.out.println("YES error: "+w);
+            }
+        }
+        for (var w:noWord) {
+            if (isDecimal(w)) {
+                error = true;
+                System.out.println("NO  error: "+w);
+            }
+        }
+        if (!error) System.out.println("Tested ok!");
+    }
+
+    public static void testArrayEvenAs() {
+        String[] yesWord = 
+            {"aa", "", "ababbaa", "abababa", "bbbbbbbb", "aaaaaaaaaaaaaa"};
+        String[] noWord = 
+            {"a ba", "33", "ababab", "aaaaa", "aaabbbb", "df"};
+        System.out.println("\nTesting DFA evanAs with fixed set of words...");
+        boolean error = false;
+        for (var w:yesWord) {
+            if (!evenAs(w)) {
+                error = true;
+                System.out.println("YES error: "+w);
+            }
+        }
+        for (var w:noWord) {
+            if (evenAs(w)) {
+                error = true;
+                System.out.println("NO  error: "+w);
+            }
+        }
+        if (!error) System.out.println("Tested ok!");
+    }
+
+    public static void testKbd() {
+        Scanner kbd = new Scanner(System.in);
+        System.out.print("\nEnter words, one per line "
+                + "(press 'Ctrl C' to stop the program).\n\n");
+        while (true) {
+            System.out.print("> ");
+            String w = kbd.nextLine();
+            boolean yesInstance = isDecimal(w);
+            //boolean yesInstance = isInt(w);
+            //boolean yesInstance = AstarB(w);
+            //boolean yesInstance = evenAs(w);
+            //
+            if (yesInstance) {
+                System.out.println("  YES\n");
+            } else {
+                System.out.println("  NO\n");
+            }
+        }
+    }
 
     /**
      * Stores a transition from this State to the given state on the given
